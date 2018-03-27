@@ -6,7 +6,7 @@
     Info         : A terminal application written in Python that reads XML files
                    and loads to Teradata tables/views.
     Build        : March 27, 2018
-    
+
     Developer    : Joseph Navarro (josephmichael.navarro@teradata.com)
     Python Editor: Visual Studio Code with Python extension
     Environment  : Windows 7 SP1 or later
@@ -24,7 +24,8 @@
 
     Requirements :
     1.) Python 3.6.4 or later
-    2.) Python modules
+    2.) Python packages
+        - lxml (to parse XML files)
         - pyodbc (to check Teradata connection)
         - xmlschema (to validate XML files using XSD schema)
     3.) PowerShell 4.0 or later (for running bteq commands)
@@ -52,13 +53,13 @@ import subprocess                           # to execute external commands
 import sys
 import shutil
 import time
-import xml.etree.ElementTree as ET          # to parse XML files
 
-# 3rd party modules
+# 3rd party packages
+from lxml import etree as ET                # to parse XML files
 import pyodbc                               # to check Teradata connection
 import xmlschema as xs                      # to validate XML files
 
-# developer-created modules
+# developer-created packages
 import classdef                        # local module
 
 
