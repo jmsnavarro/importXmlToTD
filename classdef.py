@@ -1,5 +1,5 @@
-SRCFILE_BEGIN = 'T'
-SRCFILE_END = 'XML'
+SRCFILE_BEGIN = 'food'
+SRCFILE_END = 'xml'
 TD_LOGON_FILE = 'logon'
 
 class TDObject:
@@ -52,8 +52,7 @@ class XMLElement:
     Chocolate = 'chocolate'
 
 class XMLElementList:
-    ElementList = (XMLElement.Breakfast,
-            XMLElement.Drinks,
+    ElementList = (
             XMLElement.Waffles,
             XMLElement.Toast,
             XMLElement.HomeStyle,
@@ -68,37 +67,37 @@ class XMLElementAttrib:
         'name',
         'price',
         'decscription',
-    ),
+    )
     Toast = (
         'name',
         'price',
         'decscription',
-    ),
+    )
     HomeStyle = (
         'name',
         'price',
         'decscription',
-    ),
+    )
     Espresso = (
         'name',
         'price',
         'decscription',
-    ),
+    )
     Frappuccino = (
         'name',
         'price',
         'decscription',
-    ),
+    )
     Tea = (
         'name',
         'price',
         'decscription',
-    ),
+    )
     Chocolate = (
         'name',
         'price',
         'decscription',
-    ),
+    )
 
 
 def getXMLElementAttrib(elementName):
