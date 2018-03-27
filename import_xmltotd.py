@@ -24,7 +24,7 @@
 
     Requirements :
     1.) Python 3.6.4 or later
-    2.) Python packages
+    2.) Python modules
         - lxml (to parse XML files)
         - pyodbc (to check Teradata connection)
         - xmlschema (to validate XML files using XSD schema)
@@ -54,12 +54,12 @@ import sys
 import shutil
 import time
 
-# 3rd party packages
+# 3rd party modules
 from lxml import etree as ET                # to parse XML files
 import pyodbc                               # to check Teradata connection
 import xmlschema as xs                      # to validate XML files
 
-# developer-created packages
+# developer-created modules
 import classdef                        # local module
 
 
