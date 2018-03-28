@@ -1,10 +1,3 @@
----
-title: |
-    []{#_Hlk509670993 .anchor}Import XML to Teradata Tool
-
-    Reference Guide
----
-
 Reference Guide - Import XML to Teradata Tool
 </br>
 </br>
