@@ -1,8 +1,8 @@
 # importXmlToTD
 
-## A terminal script written in Python that reads XML files and loads to Teradata tables/views via BTEQ.
+A terminal script written in Python that reads XML files and loads to Teradata tables/views via BTEQ.
 
-## Developed using Visual Studio Code with Python extension.
+Developed using Visual Studio Code with Python extension.
 
 ## Deployment Setup:
 1. Project Directory
@@ -22,7 +22,7 @@
    - PowerShell 4.0 or later (for running bteq commands)
 
 ## How to run:
-### $ python import_xmltotd.py
+$ python import_xmltotd.py
 
 ## Notes:
 - To modify default values, update classdef.py
