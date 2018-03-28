@@ -9,7 +9,7 @@ Developed using Visual Studio Code with Python extension.
    - archive (archive folder)
    - logs (log folder)
    - reject (reject folder)
-   - scripts (bteq scripts folder
+   - scripts (bteq scripts folder)
    - src (source folder)
    - tgt (target folder)
 2. Provide Teradata database, user, and password by updating ./scripts/logon file
