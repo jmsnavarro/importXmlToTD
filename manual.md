@@ -164,7 +164,7 @@ based from your target environment.
     - \<date\>\_\<time\>\_importXmlToTD.py.log (execution log of the python script)\
     e.g. 20180324\_135213\_importXmlToTD.py.log
 
-  - \<date\>\_\<time\>\_\<action\>\_\<script\_name\>.btq.out (BTEQ output files)\
+    - \<date\>\_\<time\>\_\<action\>\_\<script\_name\>.btq.out (BTEQ output files)\
     e.g. 20180324\_135238\_loadtostg\_FILENAME.XML.Insert\_STG.btq.out
 
   - reject - contains invalid XML source files
