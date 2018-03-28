@@ -40,11 +40,11 @@ Table of Contents
 
 [Logs](#logs)
 
-[Run-time Log 13](#_Toc509955299)
+[Run-time Log](#_Toc509955299)
 
-[BTEQ Out files 14](#_Toc509955300)
+[BTEQ Out files](#_Toc509955300)
 
-[Summary Log 15](#_Toc509955301)
+[Summary Log](#_Toc509955301)
 
 Preface
 =======
