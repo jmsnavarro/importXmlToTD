@@ -26,12 +26,12 @@ Developed using Visual Studio Code with Python extension.
    - PowerShell 4.0 or later (for running bteq commands)
 
 ## How to run:
-$ python import_xmltotd.py
+$ python importXmlToTD.py
 
 ## Notes:
 - To modify default values, update classdef python file
 - Each run producess two(2) types of output files:
-  - date_time_import_xmltotd.py.log (execution log of the python script)
+  - date_time_importXmlToTD.py.log (execution log of the python script)
   - date_time_action_scriptname.btq.out (bteq output files)
 """
 
