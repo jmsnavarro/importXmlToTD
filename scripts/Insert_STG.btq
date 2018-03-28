@@ -1,0 +1,81 @@
+.RUN FILE = '.\scripts\logon';
+.IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+BT;
+    INSERT INTO IMPORTXMLTOTD.WAFFLES
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.WAFFLES_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.TOAST
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.TOAST_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.HOMESTYLE
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.HOMESTYLE_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.ESPRESSO
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.ESPRESSO_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.FRAPPUCCINO
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.FRAPPUCCINO_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.TEA
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.TEA_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    INSERT INTO IMPORTXMLTOTD.CHOCOLATE
+    SELECT
+        Name
+        ,Price
+        ,Description
+        ,Srcfile
+        ,CURRENT_TIMESTAMP(0)
+    FROM IMPORTXMLTOTD.CHOCOLATE_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+ET;
+
+.QUIET OFF;
+.QUIT 0
+
+.LABEL ERRORFOUND
+.QUIT ERRORCODE

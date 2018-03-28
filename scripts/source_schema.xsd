@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<!--
+Notes:
+1.)  <xsd:all> specifies that the child elements can appear in any order.
+2.)  <xsd:sequence> specifies child elements can only appear in the order mentioned.
+3.)  when using xs:all, maxOccurs="unbounded" is not allowed
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="food_menu">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0" >
+				<xs:element ref="breakfast"/>
+				<xs:element ref="drinks"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="breakfast">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="waffles"/>
+				<xs:element ref="toast"/>
+				<xs:element ref="homestyle"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="drinks">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="espresso"/>
+				<xs:element ref="frappuccino"/>
+				<xs:element ref="chocolate"/>
+				<xs:element ref="tea"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="waffles">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="toast">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="homestyle">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="espresso">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="frappuccino">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="chocolate">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="tea">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" type="xs:string"/>
+			<xs:attribute name="price" use="required" type="xs:string"/>
+			<xs:attribute name="description" use="required" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<food_menu>
+    <breakfast>
+        <waffles names="Belgian Waffles" price="310" description="Two of our famous Belgian Waffles with plenty of real maple syrup" />
+        <toast name="French Toast" price="220" description="Thick slices made from our homemade sourdough bread" />
+        <homestyle name="Homestyle Breakfast" price="360" description="Two eggs, bacon or sausage, toast, and our ever-popular hash browns" />
+    </breakfast>
+    <drinks>
+        <espresso name="Americano" prices="120" description="Rich espresso with hot water" />
+        <espresso name="Cappuccino" price="130" description="Rich espresso, steamed with milk and a deep layer of foam" />
+        <frappuccino name="Caramel" price="140" description="Coffee, sweet caramel, milk and ice, with whipped cream" />
+        <frappuccino name="Java Chip" price="165" description="Coffee, chocolaty chips, bittersweet mocha sauce, milk and ice" />
+        <tea name="Brewed Tea" price="115" descriptions="English Breakfast" />
+        <tea name="Tea Latte" price="135" description="Tea and steamed milk" />
+    </drinks>
+</food_menu>

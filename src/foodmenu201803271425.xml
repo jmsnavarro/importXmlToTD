@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<food_menu>
+    <breakfast>
+        <waffles name="Strawberry Belgian Waffles" price="420" description="Light Belgian waffles covered with strawberries and whipped cream" />
+        <waffles name="Berry-Berry Belgian Waffles" price="480" description="Light Belgian waffles covered with an assortment of fresh berries and whipped cream" />
+    </breakfast>
+    <drinks>
+        <espresso name="Latte" price="130" description="Rich espresso, steamed with milk and a dollop layer of foam" />
+        <espresso name="Caramel Macchiato" price="155" description="Steamed milk and vanilla syrup topped with foam, rich espresso and a caramel drizzle" />
+        <espresso name="Mocha" price="145" description="Rich espresso, bittersweet chocolate sause and steamed milk" />
+        <frappuccino name="Coffee" price="140" description="Coffee and milk, blended with ice" />
+        <frappuccino name="Mocha" price="140" description="Coffee, bittersweet mocha sauce, milk and ice, with whipped cream" />
+        <chocolate name="Signature Hot Chocolate" price="140" description="Our Signature Hot Chocolate blended with steamed milk" />
+        <chocolate name="Dark Hot Chocolate" price="160" description="80% dark chocolate cultivated organically from Latin America region" />
+    </drinks>
+</food_menu>

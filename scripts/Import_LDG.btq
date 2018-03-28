@@ -1,0 +1,164 @@
+.RUN FILE = '.\scripts\logon';
+.IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+BT;
+    DELETE FROM IMPORTXMLTOTD.WAFFLES_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\waffles.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.WAFFLES_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.TOAST_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\toast.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.TOAST_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.HOMESTYLE_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\homestyle.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.HOMESTYLE_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.ESPRESSO_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\espresso.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.ESPRESSO_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.FRAPPUCCINO_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\frappuccino.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.FRAPPUCCINO_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.TEA_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\tea.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.TEA_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    DELETE FROM IMPORTXMLTOTD.CHOCOLATE_TMP;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+
+    .IMPORT VARTEXT '|' FILE = '.\tgt\chocolate.csv', SKIP = 1;
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+    .PACK 1000
+    .QUIET ON;
+    .REPEAT *
+
+    USING (Name VARCHAR(50)
+        ,Price VARCHAR(50)
+        ,Description VARCHAR(255)
+        ,SRCFILE VARCHAR(50)
+    )
+    INSERT INTO IMPORTXMLTOTD.CHOCOLATE_TMP
+    VALUES (:Name
+        ,:Price
+        ,:Description
+        ,:SRCFILE
+    );
+    .IF ERRORCODE <> 0 THEN .GOTO ERRORFOUND;
+ET;
+
+.QUIET OFF;
+.QUIT 0
+
+.LABEL ERRORFOUND
+.QUIT ERRORCODE
