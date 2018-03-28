@@ -246,7 +246,7 @@ Sample Run
 
 -   Source files:\
     \
-    ![](media/image7.png)
+    ![](media/sample_run_sourcefiles.png)
 
     -   2 valid XML files
 
