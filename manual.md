@@ -1,10 +1,3 @@
----
-title: |
-    []{#_Hlk509670993 .anchor}Import XML to Teradata Tool
-
-    Reference Guide
----
-
 Reference Guide - Import XML to Teradata Tool
 </br>
 </br>
@@ -331,8 +324,6 @@ date and time where the tool and/or a BTEQ script is run.
 
 ![](media/logs_01.png)
 
-[]{#_Toc509955299 .anchor}
-
 Run-time Log
 ------------
 
@@ -346,8 +337,6 @@ Output Window
 ![](media/runtime_log_02.png)\
 Log file
 
-[]{#_Toc509955300 .anchor}
-
 BTEQ Out files
 --------------
 
@@ -358,8 +347,6 @@ These are log files generated while running a BTEQ script.
 Each BTEQ call has its own out file.
 
 ![](media/bteqlog_02.png)
-
-[]{#_Toc509955301 .anchor}
 
 Summary Log
 -----------
