@@ -4,7 +4,8 @@ A terminal script written in Python that reads XML files and loads to Teradata t
 
 Developed using Visual Studio Code with Python extension.
 
-## Deployment Setup:
+## Deployment Setup
+
 1. Project Directory
    - archive (archive folder)
    - logs (log folder)
@@ -21,10 +22,12 @@ Developed using Visual Studio Code with Python extension.
    - xmlschema python module (to validate XML files using XSD schema)
    - PowerShell 4.0 or later (for running bteq commands)
 
-## How to run:
+## How to run
+
 $ python importXmlToTD.py
 
-## Notes:
+## Notes
+
 - To modify default values, update classdef python file
 - Each run producess two(2) types of output files:
   - date_time_import_xmltotd.py.log (execution log of the python script)
