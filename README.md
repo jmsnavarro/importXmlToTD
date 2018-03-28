@@ -25,7 +25,7 @@ Developed using Visual Studio Code with Python extension.
 $ python import_xmltotd.py
 
 ## Notes:
-- To modify default values, update classdef.py
+- To modify default values, update classdef python file
 - Each run producess two(2) types of output files:
   - date_time_import_xmltotd.py.log (execution log of the python script)
   - date_time_action_scriptname.btq.out (bteq output files)
