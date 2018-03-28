@@ -106,12 +106,11 @@ def doFileCleanup(pathDir, filename, strMessage='Removing files...', enableLogIn
             if enableLogInfo == True:
                 print('{}: {}'.format(logging.info.__name__.upper(), strMessage))
                 logging.info('{}'.format(strMessage))
-            for f in files:
-                try:
-                    os.remove(f)
-                except Exception as e:
-                    print('{}: {}'.format(logging.debug.__name__.upper(), e))
-                    logging.debug('{}'.format(e))
+            try:
+                [os.remove(f) for f in files]
+            except Exception as e:
+                print('{}: {}'.format(logging.debug.__name__.upper(), e))
+                logging.debug('{}'.format(e))
 
 # validate if group of files exists
 def ifFilesExists(path, wildcardFilename):
