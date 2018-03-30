@@ -197,33 +197,55 @@ def doParseXMLtoCSV(srcPathFilename, elementName):
 def execTeradataPing(showLog=True):
     if showLog == True:
         msg = '{}'.format('Checking connection to Teradata...')
-        print('{}: {}'.format(logging.info.__name__.upper(), msg))
-        logging.info('{}'.format(msg))
+        genLogPrint_DBOperation_Info(msg)
     try:
         with open(os.path.join(currentWorkDir, scriptsDir, classdef.TD_LOGON_FILE), 'r', newline=None) as file:
             connLogon = file.readline().rstrip('\r\n')
             connVal = (connLogon.replace('/',',').replace(' ', ',')).split(',')
             try:
-                pyodbc.connect('DSN={};UID={};PWD={}'.format(
+                conn = pyodbc.connect('DSN={};UID={};PWD={}'.format(
                         connVal[1],
                         connVal[2],
                         connVal[3]
                     )
                 )
+                try:
+                    msg = '{}'.format('Passing a sample test query...')
+                    genLogPrint_DBOperation_Info(msg)
+                    with conn.cursor() as cursor:
+                        sql = 'SELECT LOG_FILENAME FROM {}.XMLTOTD_SUMMARY WHERE 1=0'.format(connVal[2])
+                        try:
+                            cursor.execute('{}'.format(sql))
+                        except Exception:
+                            msg = '{}. {}'.format(
+                                'Unable to pass a sample query',
+                                'Please verify the logon file and or manually check database connection'
+                            )
+                            genLogPrint_DBOperation_Warning(msg)
+                            return False
+                        else:
+                            return True
+                except Exception:
+                    msg = '{}. {}'.format(
+                        'Unable to pass a sample query',
+                        'Please verify the logon file and or manually check database connection'
+                    )
+                    genLogPrint_DBOperation_Warning(msg)
+                    return False
+                else:
+                    return True
             except Exception:
                 msg = '{}. {}'.format(
                     'Unable to access Teradata database',
                     'Please verify the logon file and or manually check database connection'
                 )
-                print('{}: {}.'.format(logging.warning.__name__.upper(), msg))
-                logging.warning('{}'.format(msg))
+                genLogPrint_DBOperation_Warning(msg)
                 return False
             else:
                 return True
     except Exception:
         msg = 'Unable to access or locate Teradata logon file. Please verify'
-        print('{}: {}.'.format(logging.warning.__name__.upper(), msg))
-        logging.warning('{}'.format(msg))
+        genLogPrint_DBOperation_Warning(msg)
         return False
 
 # execute Teradata script
@@ -344,6 +366,15 @@ def genLogPrint_CannotContinue(elapsedTime, reason):
     msg = ('Cannot continue', 'Total runtime')
     print('{}: {}. {}.\n{}: {}'.format(logging.info.__name__.upper(), msg[0], reason, msg[1], elapsedTime))
     logging.info('{}. {}. {}: {}'.format(msg[0], reason, msg[1], elapsedTime))
+
+# log print: database operations
+def genLogPrint_DBOperation_Info(reason):
+    print('{}: {}.'.format(logging.info.__name__.upper(), reason))
+    logging.info('{}'.format(reason))
+
+def genLogPrint_DBOperation_Warning(reason):
+    print('{}: {}.'.format(logging.warning.__name__.upper(), reason))
+    logging.warning('{}'.format(reason))
 
 # main definition
 def main():
