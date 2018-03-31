@@ -54,7 +54,7 @@ import pyodbc                               # to check Teradata connection
 import xmlschema as xs                      # to validate XML files
 
 # developer-created modules
-import classdef                        # local module
+import classdef                             # local module
 
 
 # replace strings from a file
