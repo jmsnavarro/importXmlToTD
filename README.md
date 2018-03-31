@@ -28,7 +28,7 @@ $ python importXmlToTD.py
 
 ## Notes
 
-- To modify default values, update classdef python file
+- To modify default values, update classdef.py python file
 - Each run producess two(2) types of output files:
   - date_time_import_xmltotd.py.log (execution log of the python script)
   - date_time_action_scriptname.btq.out (bteq output files)
