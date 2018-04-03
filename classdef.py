@@ -53,14 +53,14 @@ class XMLElement:
 
 class XMLElementList:
     ElementList = (
-            XMLElement.Waffles,
-            XMLElement.Toast,
-            XMLElement.HomeStyle,
-            XMLElement.Espresso,
-            XMLElement.Frappuccino,
-            XMLElement.Tea,
-            XMLElement.Chocolate,
-        )
+        XMLElement.Waffles,
+        XMLElement.Toast,
+        XMLElement.HomeStyle,
+        XMLElement.Espresso,
+        XMLElement.Frappuccino,
+        XMLElement.Tea,
+        XMLElement.Chocolate,
+    )
 
 class XMLElementAttrib:
     Waffles = (
@@ -102,7 +102,7 @@ class XMLElementAttrib:
 
 def getXMLElementAttrib(elementName):
     if elementName == XMLElement.Waffles:
-            return XMLElementAttrib.Waffles
+        return XMLElementAttrib.Waffles
     elif elementName == XMLElement.Toast:
             return XMLElementAttrib.Toast
     elif elementName == XMLElement.HomeStyle:
