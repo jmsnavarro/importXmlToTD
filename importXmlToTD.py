@@ -71,26 +71,25 @@ def genFileList(fileDir, fileListName, strBegin, strEnd, enableLogInfo=False):
                 with open(os.path.join(fileDir, fileListName), 'w', newline='') as filelist:
                     if enableLogInfo == True:
                         msg = 'Generating file list...'
-                        print('{}: {}'.format(logging.info.__name__.upper(), msg))
-                        logging.info('{}'.format(msg))
-                    [filelist.write('{}\n'.format(os.path.join(fileDir, f.name))) for f in cntFile]
+                        print(f'{logging.info.__name__.upper()}: {msg}')
+                        logging.info(msg)
+                    [filelist.write(f'{os.path.join(fileDir, f.name)}\n') for f in cntFile]
                 return len(cntFile)
             except Exception as e:
-                print('{}: {}'.format(logging.debug.__name__.upper(), e))
-                logging.debug('{}'.format(e))
+                print(f'{logging.debug.__name__.upper()}: {e}')
+                logging.debug(e)
 
 # move file to a folder
 def doMoveFile(filename, srcPathDir, tgtPathDir, comment='moving to'):
     if os.path.isfile(os.path.join(tgtPathDir, filename)):
         msg = ('Cannot move', 'file', 'It already exists in', 'directory')
-        print('{}: {} {} {}. {} {} {}.'.format(logging.warning.__name__.upper(),
-            msg[0], filename, msg[1], msg[2], '.\\{}'.format(os.path.basename(tgtPathDir)), msg[3]))
-        logging.warning('{} {} {}. {} {} {}.'.format(msg[0], filename, msg[1], msg[2], tgtPathDir, msg[3]))
+        print(f'{logging.warning.__name__.upper()}: {msg[0]} {filename} {msg[1]}. {msg[2]} .\\{os.path.basename(tgtPathDir)} {msg[3]}.')
+        logging.warning(f'{msg[0]} {filename} {msg[1]}. {msg[2]} {tgtPathDir} {msg[3]}.')
     else:
         shutil.move(os.path.join(srcPathDir, filename), os.path.join(tgtPathDir, filename))
         if comment:
-            print('{}: {} {} .\\{}'.format(logging.info.__name__.upper(), filename, comment, os.path.basename(tgtPathDir)))
-            logging.info('{} {} .\\{}'.format(filename, comment, os.path.basename(tgtPathDir)))
+            print(f'{logging.info.__name__.upper()}: {filename} {comment} .\\{os.path.basename(tgtPathDir)}')
+            logging.info(f'{filename} {comment} .\\{os.path.basename(tgtPathDir)}')
 
 # file cleanup
 def doFileCleanup(pathDir, filename, strMessage='Removing files...', enableLogInfo=True):
@@ -99,18 +98,18 @@ def doFileCleanup(pathDir, filename, strMessage='Removing files...', enableLogIn
     except FileNotFoundError:
         None
     except Exception as e:
-        print('{}: {}'.format(logging.warning.__name__.upper(), e))
-        logging.warning('{}'.format(e))
+        print(f'{logging.warning.__name__.upper()}: {e}')
+        logging.warning(e)
     else:
         if files:
             if enableLogInfo == True:
-                print('{}: {}'.format(logging.info.__name__.upper(), strMessage))
-                logging.info('{}'.format(strMessage))
+                print(f'{logging.info.__name__.upper()}: {strMessage}')
+                logging.info(strMessage)
             try:
                 [os.remove(f) for f in files]
             except Exception as e:
-                print('{}: {}'.format(logging.debug.__name__.upper(), e))
-                logging.debug('{}'.format(e))
+                print(f'{logging.debug.__name__.upper()}: {e}')
+                logging.debug(e)
 
 # validate if group of files exists
 def ifFilesExists(path, wildcardFilename):
@@ -121,21 +120,22 @@ def ifFilesExists(path, wildcardFilename):
 
 # validate if file exists
 def isFileExists(path, filename, showMsg=False, showLog=False):
-    if os.path.isfile(os.path.join(path, filename.rstrip('\r\n'))):
+    filename = filename.rstrip('\r\n')
+    if os.path.isfile(os.path.join(path, filename)):
         return True
     else:
         msg = 'does not exists in'
         if showMsg:
-            print('{}: {} {} {}'.format(logging.info.__name__.upper(), filename.rstrip('\r\n'), msg, path))
+            print(f'{logging.info.__name__.upper()}: {filename} {msg} {path}')
         if showLog:
-            logging.info('{} {} {}'.format(filename.rstrip('\r\n'), msg, path))
+            logging.info(f'{filename} {msg} {path}')
         return False
 
 # check if directories exists
 def isWorkDirsPresent():
-    msg = '{}'.format('Checking work directory...')
-    print('{}: {}'.format(logging.info.__name__.upper(), msg))
-    logging.info('{}'.format(msg))
+    msg = 'Checking work directory...'
+    print(f'{logging.info.__name__.upper()}: {msg}')
+    logging.info(msg)
     if os.path.isdir(os.path.join(currentWorkDir, scriptsDir)) and \
         os.path.isdir(os.path.join(currentWorkDir, tgtDir)) and \
         os.path.isdir(os.path.join(currentWorkDir, srcDir)) and \
@@ -160,7 +160,7 @@ def doParseXMLtoCSV(srcPathFilename, elementName):
     srcFilename = os.path.basename(srcPathFilename)
     tree = ET.parse(srcPathFilename)
     xmlRoot = tree.getroot()
-    tgtPathFilename = os.path.join(tgtPathDir, '{}.{}'.format(elementName, 'csv'))
+    tgtPathFilename = os.path.join(tgtPathDir, f'{elementName}.csv')
 
     if os.path.isfile(tgtPathFilename):
         fileObject = open(tgtPathFilename, 'a', newline='')
@@ -170,9 +170,9 @@ def doParseXMLtoCSV(srcPathFilename, elementName):
     tupAttrib = classdef.getXMLElementAttrib(elementName)
 
     elementNameTemp = None
-    for dom in xmlRoot.findall(".//{}".format(elementName)):
+    for dom in xmlRoot.findall(f".//{elementName}"):
         if elementName != elementNameTemp:
-            msg = 'fetching data from ...<{}>'.format(elementName)
+            msg = f'fetching data from ...<{elementName}>'
             print(msg)
             logging.info(msg)
             elementNameTemp = elementName
@@ -196,49 +196,38 @@ def doParseXMLtoCSV(srcPathFilename, elementName):
 # check teradata connection
 def execTeradataPing(showLog=True):
     if showLog == True:
-        msg = '{}'.format('Checking connection to Teradata...')
+        msg = 'Checking connection to Teradata...'
         genLogPrint_DBOperation_Info(msg)
     try:
         with open(os.path.join(currentWorkDir, scriptsDir, classdef.TD_LOGON_FILE), 'r', newline=None) as file:
             connLogon = file.readline().rstrip('\r\n')
             connVal = (connLogon.replace('/',',').replace(' ', ',')).split(',')
             try:
-                conn = pyodbc.connect('DSN={};UID={};PWD={}'.format(
-                        connVal[1],
-                        connVal[2],
-                        connVal[3]
-                    )
-                )
+                conn = pyodbc.connect(f'DSN={connVal[1]};UID={connVal[2]};PWD={connVal[3]}')
                 try:
-                    msg = '{}'.format('Passing a sample test query...')
+                    msg = 'Passing a sample test query...'
                     genLogPrint_DBOperation_Info(msg)
                     with conn.cursor() as cursor:
-                        sql = 'SELECT LOG_FILENAME FROM {}.XMLTOTD_SUMMARY WHERE 1=0'.format(connVal[2])
+                        sql = f'SELECT LOG_FILENAME FROM {connVal[2]}.XMLTOTD_SUMMARY WHERE 1=0'
                         try:
-                            cursor.execute('{}'.format(sql))
+                            cursor.execute(f'{sql}')
                         except Exception:
-                            msg = '{}. {}'.format(
-                                'Unable to pass a sample query',
-                                'Please verify the logon file and or manually check database connection'
-                            )
+                            msg = f'Unable to pass a sample query.' \
+                                f' Please verify the logon file or manually check database connection'
                             genLogPrint_DBOperation_Warning(msg)
                             return False
                         else:
                             return True
                 except Exception:
-                    msg = '{}. {}'.format(
-                        'Unable to pass a sample query',
-                        'Please verify the logon file and or manually check database connection'
-                    )
+                    msg = f'Unable to pass a sample query.' \
+                        f' Please verify the logon file or manually check database connection'
                     genLogPrint_DBOperation_Warning(msg)
                     return False
                 else:
                     return True
             except Exception:
-                msg = '{}. {}'.format(
-                    'Unable to access Teradata database',
-                    'Please verify the logon file and or manually check database connection'
-                )
+                msg =  f'Unable to access Teradata database.' \
+                    f' Please verify the logon file or manually check database connection'
                 genLogPrint_DBOperation_Warning(msg)
                 return False
             else:
@@ -258,43 +247,37 @@ def execTeradataScript(scriptsDir, logDir, BTEQScript, action, showRunCommand=Fa
 
     # create command
     # eg. <date>_<time>_<action>_<XML file>_<bteq file>.out
-    command = 'powershell Get-Content .\\{}\\{} | bteq > .\\{}\\{}_{}'.\
-        format(
-            scriptsDir,
-            BTEQScript,
-            logDir,
-            time.strftime('%Y%m%d_%H%M%S'),
-            action
-        )
+    command = f"powershell Get-Content .\\{scriptsDir}\\{BTEQScript} | bteq > .\\{logDir}\\{time.strftime('%Y%m%d_%H%M%S')}_{action}"
+
     if filename:
-        command = '{}_{}.{}.out'.format(command, filename, BTEQScript)
+        command = f'{command}_{filename}.{BTEQScript}.out'
     else:
-        command = '{}_{}.out'.format(command, BTEQScript)
+        command = f'{command}_{BTEQScript}.out'
 
     if showRunCommand == True:
         msg = 'Running command'
-        print('{} -> {}'.format(msg, command))
-        logging.info('{} {}'.format(msg, command))
+        print(f'{msg} -> {command}')
+        logging.info(f'{msg} {command}')
 
     try:
         subproc = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     except Exception as e:
         msg = ('The script encountered an error', 'Please check the logs')
-        print('{} {}.\n{}.\n{}'.format(logging.error.__name__.upper(), msg[0], msg[1], e))
-        logging.error('{} {}. {}'.format(msg[0], msg[1], e))
+        print(f'{logging.error.__name__.upper()} {msg[0]}.\n{msg[1]}.\n{e}')
+        logging.error(f'{msg[0]} {msg[1]}. {e}')
     else:
         if subproc.returncode > 0:
             msg = ('Failed running command', 'Please check log (.btq.out) file')
-            print('{}: {} "{}"\n{} {}.'.format(logging.warning.__name__.upper(), msg[0], command,
-                str(subproc.stderr, 'utf-8'), msg[1]))
+            print(f"{logging.warning.__name__.upper()}: {msg[0]} \"{command}\"\n{str(subproc.stderr, 'utf-8')} {msg[1]}.")
+
             logging.warning('{} "{}". {} {}.'.format(msg[0], command,
                 str(subproc.stderr).replace('b', '').replace('\\r', ' ').replace('\\n', ' ').replace('\\t', ' '),
                 msg[1]))
         else:
             if showRunCommand == True:
                 msg = ('Output', 'SUCCESSFUL')
-                print('{}: {}'.format(msg[0], msg[1]))
-                logging.info('{}: {}'.format(msg[0], msg[1]))
+                print(f'{msg[0]}: {msg[1]}')
+                logging.info(f'{msg[0]}: {msg[1]}')
     return subproc.returncode
 
 # clean temporary files and tables created from previous runs if exists
@@ -302,30 +285,30 @@ def doCleanTempData():
     doFileCleanup(tgtPathDir, '*.csv', 'Removing temporary files...')
     doFileCleanup(
         srcPathDir,
-        '{}*.txt'.format(classdef.FileListName.GenericFileList),
+        f'{classdef.FileListName.GenericFileList}*.txt',
         'Removing file lists...'
     )
 
     msg = 'Cleaning temporary tables...'
-    print('{}: {}'.format(logging.info.__name__.upper(), msg))
-    logging.info('{}'.format(msg))
+    print(f'{logging.info.__name__.upper()}: {msg}')
+    logging.info(msg)
     execTeradataScript(scriptsDir, logDir, classdef.BTEQScript.DeleteTempTables, 'deletetmp')
 
 # move XML source files to archive folder
 def doArchiveSrc():
     msg = 'Moving XML source files to archive folder...'
-    print('\n{}: {}'.format(logging.info.__name__.upper(), msg))
-    logging.info('{}'.format(msg))
+    print(f'\n{logging.info.__name__.upper()}: {msg}')
+    logging.info(msg)
 
     # regenerate file list (rejects already moved to rejects folder)
     doFileCleanup(
         srcPathDir,
-        '{}*.txt'.format(classdef.FileListName.GenericFileList),
+        f'{classdef.FileListName.GenericFileList}*.txt',
         None,
         False
     )
-    fileListName = '{}.{}'.format(classdef.FileListName.XMLFileList, 'txt')
-    genFileList(srcPathDir, fileListName, classdef.SRCFILE_BEGIN, '.{}'.format(classdef.SRCFILE_END))
+    fileListName = f'{classdef.FileListName.XMLFileList}.txt'
+    genFileList(srcPathDir, fileListName, classdef.SRCFILE_BEGIN, f'.{classdef.SRCFILE_END}')
 
     try:
         with open(os.path.join(srcPathDir, fileListName), 'r', newline=None) as fileListName:
@@ -335,46 +318,46 @@ def doArchiveSrc():
                     os.path.join(currentWorkDir, archiveDir),
                     comment='')
     except Exception as e:
-        print('{}: {}'.format(logging.debug.__name__.upper(), e))
-        logging.debug('{}'.format(e))
+        print(f'{logging.debug.__name__.upper()}: {e}')
+        logging.debug(e)
 
 # insert run summary to summary table
 def genRunSummary(logPathDir, startDateTime, elapsedRunTime, summaryDesc):
-    path = os.path.join(logPathDir, '{}'.format(classdef.Files.SummaryLog))
+    path = os.path.join(logPathDir, f'{classdef.Files.SummaryLog}')
     try:
         with open(path, 'w', newline='') as fileObject:
             csvWriter = csv.writer(fileObject, delimiter=classdef.Delimiter.Pipe)
             l = list()
             l.append(startDateTime)
             l.append(elapsedRunTime)
-            l.append('.\\{}\\{}'.format(logDir, logFilename))
+            l.append(f'.\\{logDir}\\{logFilename}')
             l.append(summaryDesc.replace('"', '').replace('|', ':'))
             csvWriter.writerow(l)
     except Exception as e:
-        print('{}: {}'.format(logging.warning.__name__.upper(), e))
-        logging.warning('{}'.format(e))
+        print(f'{logging.warning.__name__.upper()}: {e}')
+        logging.warning(e)
 
 # log print: Nothing to process
 def genLogPrint_NothingToProcess(elapsedTime, reason):
     elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
     msg = ('Nothing to process', 'Total runtime')
-    print('\n{}: {}. {}.\n{}: {}\n'.format(logging.info.__name__.upper(), msg[0], reason, msg[1], elapsedTime))
-    logging.info('{}. {}. {}: {}'.format(msg[0], reason, msg[1], elapsedTime))
+    print(f'\n{logging.info.__name__.upper()}: {msg[0]}. {reason}.\n{msg[1]}: {elapsedTime}\n')
+    logging.info(f'{msg[0]}. {reason}. {msg[1]}: {elapsedTime}')
 
 # log print: Cannot continue
 def genLogPrint_CannotContinue(elapsedTime, reason):
     msg = ('Cannot continue', 'Total runtime')
-    print('{}: {}. {}.\n{}: {}'.format(logging.info.__name__.upper(), msg[0], reason, msg[1], elapsedTime))
-    logging.info('{}. {}. {}: {}'.format(msg[0], reason, msg[1], elapsedTime))
+    print(f'{logging.info.__name__.upper()}: {msg[0]}. {reason}.\n{msg[1]}: {elapsedTime}')
+    logging.info(f'{msg[0]}. {reason}. {msg[1]}: {elapsedTime}')
 
 # log print: database operations
 def genLogPrint_DBOperation_Info(reason):
-    print('{}: {}.'.format(logging.info.__name__.upper(), reason))
-    logging.info('{}'.format(reason))
+    print(f'{logging.info.__name__.upper()}: {reason}.')
+    logging.info(f'{reason}.')
 
 def genLogPrint_DBOperation_Warning(reason):
-    print('{}: {}.'.format(logging.warning.__name__.upper(), reason))
-    logging.warning('{}'.format(reason))
+    print(f'{logging.warning.__name__.upper()}: {reason}.')
+    logging.warning(f'{reason}.')
 
 # main definition
 def main():
@@ -382,8 +365,8 @@ def main():
     if execTeradataPing() == False:
         # show elapsed time
         elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
-        msg = 'Elapsed time {}'.format(elapsedTime)
-        print('{}: {}'.format(logging.info.__name__.upper(), msg))
+        msg = f'Elapsed time {elapsedTime}'
+        print(f'{logging.info.__name__.upper()}: {msg}')
         logging.info(msg)
 
         # end
@@ -393,9 +376,8 @@ def main():
     if isWorkDirsPresent() == False:
         # show if work folders are missing
         elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
-        msg = '{} "{}": {}, {}, {}, {}, {} and {}'.format(
-            'Please check if these folders exists in the current work directory',
-            currentWorkDir, archiveDir, logDir, rejectDir, scriptsDir, srcDir, tgtDir)
+        msg = f'Please check if these folders exists in the current work directory ' \
+            f'\"{currentWorkDir}\": {archiveDir}, {logDir}, {rejectDir}, {scriptsDir}, {srcDir} and {tgtDir}'
         genLogPrint_CannotContinue(elapsedTime, msg)
 
         # write summary log
@@ -408,10 +390,10 @@ def main():
     # check if dependent files exists
     if isDependentFilesPresent() == False:
         elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
-        msg ='{}: {} {} in .\\{} and {} {} in .\\{}'.format(
-            'Please check if these files exists',
-            'schema file', classdef.Files.XSDSchema, scriptsDir,
-            'BTEQ files' , '(*.btq)', scriptsDir)
+        msg = f'Please check if these files exists: ' \
+            f'schema file {classdef.Files.XSDSchema} in '\
+            f'.\\{scriptsDir} and BTEQ files (*.btq) in '\
+            f'.\\{scriptsDir}'
         genLogPrint_CannotContinue(elapsedTime, msg)
 
         # write summary log
@@ -423,11 +405,11 @@ def main():
 
     # create file list if there are source files to process
     cntFilesOnQue = 0
-    files = glob.glob(os.path.join(srcPathDir, '{}*.{}'.format(classdef.SRCFILE_BEGIN, classdef.SRCFILE_END)))
+    files = glob.glob(os.path.join(srcPathDir, f'{classdef.SRCFILE_BEGIN}*.{classdef.SRCFILE_END}'))
     if not files:
         # show if nothing to process
         elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
-        msg = '{} "{}"'.format('Please check source availability in', srcPathDir)
+        msg = f'Please check source availability in \"{srcPathDir}\"'
         genLogPrint_NothingToProcess(elapsedTime, msg)
 
         # write summary log
@@ -441,12 +423,12 @@ def main():
         doCleanTempData()
 
         # generate file list from XML souce files
-        fileListName = '{}.{}'.format(classdef.FileListName.XMLFileList, 'txt')
+        fileListName = f'{classdef.FileListName.XMLFileList}.txt'
         cntFilesOnQue = genFileList(
             srcPathDir,
             fileListName,
             classdef.SRCFILE_BEGIN,
-            '.{}'.format(classdef.SRCFILE_END),
+            f'.{classdef.SRCFILE_END}',
             True
         )
 
@@ -465,9 +447,9 @@ def main():
         # end
         sys.exit()
     else:
-        msg = 'Validating {} XML source file(s)...'.format(cntFilesOnQue)
-        print('\n{}: {}'.format(logging.info.__name__.upper(), msg))
-        logging.info('{}'.format(msg))
+        msg = f'Validating {cntFilesOnQue} XML source file(s)...'
+        print(f'\n{logging.info.__name__.upper()}: {msg}')
+        logging.info(msg)
 
         try:
             with open(os.path.join(srcPathDir, fileListName), 'r', newline=None) as filelist:
@@ -482,54 +464,49 @@ def main():
                             # test xml against xsd schema file
                             if getSchema.is_valid(file):
                                 cntValidSchema += 1
-                                msg = '(File {} of {}) {} ...validated (OK)'.format(cntFile, cntFilesOnQue, filename)
-                                print('{}'.format(msg))
-                                logging.info('{}'.format(msg))
+                                msg = f'(File {cntFile} of {cntFilesOnQue}) {filename} ...validated (OK)'
+                                print(msg)
+                                logging.info(msg)
                                 cntFile += 1
                             else:
                                 cntInvalidSchema += 1
-                                msg = '(File {} of {}) {} ...rejected (INVALID SCHEMA)'.format(cntFile, cntFilesOnQue, filename)
-                                print('{}: {}'.format(logging.warning.__name__.upper(), msg))
-                                logging.warning('{}'.format(msg))
+                                msg = f'(File {cntFile} of {cntFilesOnQue}) {filename} ...rejected (INVALID SCHEMA)'
+                                print(f'{logging.warning.__name__.upper()}: {msg}')
+                                logging.warning(msg)
                                 try:
                                     getSchema.validate(file)
                                 except Exception as e:
-                                    print('{}: {}'.format(logging.warning.__name__.upper(), e))
-                                    logging.warning('{}'.format(e))
+                                    print(f'{logging.warning.__name__.upper()}: {e}')
+                                    logging.warning(e)
                                     continue
                                 finally:
                                     # rename reject file as <datetime>_filename.XML.reject and move to reject folder
-                                    rejectFile = '{}_{}.reject'.format(time.strftime('%Y%m%d_%H%M%S'), filename)
+                                    rejectFile = f"{time.strftime('%Y%m%d_%H%M%S')}_{filename}.reject"
                                     shutil.move(file, os.path.join(srcPathDir, rejectFile))
                                     doMoveFile(rejectFile, srcPathDir, rejectPathDir, None)
                                     cntFile += 1
 
                     elapsedTime = timedelta(seconds=round(time.time() - startTime_ValidateXML_main))
-                    msg = 'Total files checked against xsd: {} validated, {} rejected (elapsed time {})'.format(
-                            cntValidSchema,
-                            cntInvalidSchema,
-                            elapsedTime)
-                    print('\n{}: {}'.format(logging.info.__name__.upper(), msg))
-                    logging.info('{}'.format(msg))
+                    msg = f'Total files checked against xsd: {cntValidSchema} validated, {cntInvalidSchema} rejected (elapsed time {elapsedTime})'
+                    print(f'\n{logging.info.__name__.upper()}: {msg}')
+                    logging.info(msg)
 
                 except Exception as e:
-                    print('{}: {}'.format(logging.error.__name__.upper(), e))
-                    logging.error('{}'.format(e))
+                    print(f'{logging.error.__name__.upper()}: {e}')
+                    logging.error(e)
 
         except Exception as e:
             msg = 'Cannot read filelist'
-            print('\n{}: {} {}\n{}'.format(logging.debug.__name__.upper(), msg, fileListName, e))
-            logging.debug('{} {} {}'.format(msg, fileListName, e))
+            print(f'\n{logging.debug.__name__.upper()}: {msg} {fileListName}\n{e}')
+            logging.debug(f'{msg} {fileListName} {e}')
 
     # regenerate file list based from validated XML source files
     cntFilesOnQue_Valid = 0
     if cntValidSchema == 0:
         # write summary log
-        msg = 'SUMMARY: {} files processed | {} xml files(s) validated, {} invalid'.format(
-                cntFilesOnQue,
-                cntValidSchema, cntInvalidSchema)
-        print('{}: {}'.format(logging.info.__name__.upper(), msg))
-        logging.info('{}'.format(msg))
+        msg = f'SUMMARY: {cntFilesOnQue} files processed | {cntValidSchema} xml files(s) validated, {cntInvalidSchema} invalid'
+        print(f'{logging.info.__name__.upper()}: {msg}')
+        logging.info(msg)
         genRunSummary(tgtPathDir, startTime_Main_Str, elapsedTime, msg)
         execTeradataScript(scriptsDir, logDir, classdef.BTEQScript.InsertSummaryTable, 'writelog')
 
@@ -538,15 +515,15 @@ def main():
     else:
         doFileCleanup(
             srcPathDir,
-            '{}*.txt'.format(classdef.FileListName.GenericFileList),
+            f'{classdef.FileListName.GenericFileList}*.txt',
             'Refreshing file list...'
         )
-        fileListName = '{}.{}'.format(classdef.FileListName.XMLFileList, 'txt')
+        fileListName = f'{classdef.FileListName.XMLFileList}.txt'
         cntFilesOnQue_Valid = genFileList(
             srcPathDir,
             fileListName,
             classdef.SRCFILE_BEGIN,
-            '.{}'.format(classdef.SRCFILE_END)
+            f'.{classdef.SRCFILE_END}'
         )
 
         if cntFilesOnQue_Valid == 0:
@@ -556,7 +533,7 @@ def main():
             genLogPrint_NothingToProcess(elapsedTime, msg)
 
             # write summary log
-            msg = '{} in "{}"'.format(msg, '.\\{}'.format(srcDir))
+            msg = f'{msg} in ".\\{srcDir}"'
             genRunSummary(tgtPathDir, startTime_Main_Str, elapsedTime, msg)
             execTeradataScript(scriptsDir, logDir, classdef.BTEQScript.InsertSummaryTable, 'writelog')
 
@@ -566,8 +543,8 @@ def main():
     # parse validated XML source files to CSV then import to Teradata
     if cntFilesOnQue_Valid > 0:
         msg = 'Parsing source files and importing to tables...'
-        print('\n{}: {}'.format(logging.info.__name__.upper(), msg))
-        logging.info('{}'.format(msg))
+        print(f'\n{logging.info.__name__.upper()}: {msg}')
+        logging.info(msg)
 
         try:
             with open(os.path.join(srcPathDir, fileListName), 'r', newline=None) as filelist:
@@ -581,9 +558,9 @@ def main():
                     doFileCleanup(tgtPathDir, '*.csv', None, False)
                     file = file.rstrip('\r\n')
                     filename = os.path.basename(file)
-                    msg = '(File: {} of {}) parsing .\\{}\\{}'.format(cntFile, cntFilesOnQue_Valid, srcDir, filename)
-                    print('\n{}'.format(msg))
-                    logging.info('{}'.format(msg))
+                    msg = f'(File: {cntFile} of {cntFilesOnQue_Valid}) parsing .\\{srcDir}\\{filename}'
+                    print(msg)
+                    logging.info(msg)
 
                     # parse XML to csv file
                     startTime_ParsingAndTDLoad = time.time()
@@ -601,7 +578,7 @@ def main():
                             ) > 0:
                             cntImportToTableRejected += 1
                             # rename reject file as <datetime>_filename.XML.reject and move to reject folder
-                            rejectFile = '{}_{}.reject'.format(time.strftime('%Y%m%d_%H%M%S'), filename)
+                            rejectFile = f"{time.strftime('%Y%m%d_%H%M%S')}_{filename}.reject"
                             shutil.move(file, os.path.join(srcPathDir, rejectFile))
                             doMoveFile(rejectFile, srcPathDir, rejectPathDir)
                         else:
@@ -616,60 +593,52 @@ def main():
                                 ) > 0:
                                 cntImportToTableRejected += 1
                                 # rename reject file as <datetime>_filename.XML.reject and move to reject folder
-                                rejectFile = '{}_{}.reject'.format(time.strftime('%Y%m%d_%H%M%S'), filename)
+                                rejectFile = f"{time.strftime('%Y%m%d_%H%M%S')}_{filename}.reject"
                                 shutil.move(file, os.path.join(srcPathDir, rejectFile))
                                 doMoveFile(rejectFile, srcPathDir, rejectPathDir)
                             else:
                                 cntImportedToTable += 1
                     else:
                         msg = 'XML file do not have data.'
-                        print('{}'.format(msg))
-                        logging.info('{}'.format(msg))
+                        print(msg)
+                        logging.info(msg)
                         cntFileNoData += 1
 
                     elapsedTime = timedelta(seconds=round(time.time() - startTime_ParsingAndTDLoad))
-                    msg = 'Elapsed time {}'.format(elapsedTime)
-                    print('{}: {}'.format(logging.info.__name__.upper(), msg))
-                    logging.info('{}'.format(msg))
+                    msg = f'Elapsed time {elapsedTime}'
+                    print(f'{logging.info.__name__.upper()}: {msg}')
+                    logging.info(msg)
                     cntFile += 1
 
         except Exception as e:
             msg = 'Cannot read filelist'
-            print('\n{}: {} {}\n{}'.format(logging.debug.__name__.upper(), msg, fileListName, e))
-            logging.debug('{} {} {}'.format(msg, fileListName, e))
+            print(f'\n{logging.debug.__name__.upper()}: {msg} {fileListName}\n{e}')
+            logging.debug(f'{msg} {fileListName} {e}')
 
         elapsedTime = timedelta(seconds=round(time.time() - startTime_ParsingAndTDLoad_Main))
-        msg = 'Total files processed: {} imported, {} rejected (elapsed time {})'.format(
-                cntImportedToTable,
-                cntImportToTableRejected,
-                elapsedTime)
-        print('\n{}: {}'.format(logging.info.__name__.upper(), msg))
-        logging.info('{}'.format(msg))
+        msg = f'Total files processed: {cntImportedToTable} imported, {cntImportToTableRejected} rejected (elapsed time {elapsedTime})'
+        print(f'\n{logging.info.__name__.upper()}: {msg}')
+        logging.info(msg)
 
         # transfer XML source files to archive folder
         doArchiveSrc()
 
         # show end
         if cntInvalidSchema > 0 or cntImportToTableRejected > 0:
-            rejectMessage = ' {}. {} "{}".'.format('with reject file(s)', 'Please check log directory', tgtPathDir)
+            rejectMessage = f' with reject file(s). Please check log directory \"{tgtPathDir}\".'
         else:
             rejectMessage = '.'
         msg = 'DONE! Importing XML files to Teradata run successfully'
-        print('\n{}: {}{}'.format(logging.info.__name__.upper(), msg, rejectMessage))
-        logging.info('{}{}'.format(msg, rejectMessage))
+        print(f'\n{logging.info.__name__.upper()}: {msg}{rejectMessage}')
+        logging.info(f'{msg}{rejectMessage}')
 
         # show summary
         elapsedTime = timedelta(seconds=round(time.time() - startTime_Main))
-        msg = 'SUMMARY: {} file(s) processed'.format(cntFilesOnQue)
-        msg = '{} | {} xml files(s) validated, {} invalid/rejected'.format(msg, cntFilesOnQue_Valid, cntInvalidSchema)
-        msg = '{} | {} imported to tables, {} no data, {} with issue(s)/rejected'.format(
-            msg,
-            cntImportedToTable,
-            cntFileNoData,
-            cntImportToTableRejected
-        )
-        print('\n{}: {} | Elapsed time {}\n'.format(logging.info.__name__.upper(), msg, elapsedTime))
-        logging.info('{} | Elapsed time {}'.format(msg, elapsedTime))
+        msg = f'SUMMARY: {cntFilesOnQue} file(s) processed'
+        msg = f'{msg} | {cntFilesOnQue_Valid} xml files(s) validated, {cntInvalidSchema} invalid/rejected'
+        msg = f'{msg} | {cntImportedToTable} imported to tables, {cntFileNoData} no data, {cntImportToTableRejected} with issue(s)/rejected'
+        print(f'\n{logging.info.__name__.upper()}: {msg} | Elapsed time {elapsedTime}\n')
+        logging.info(f'{msg} | Elapsed time {elapsedTime}')
 
         # write summary log
         genRunSummary(tgtPathDir, startTime_Main_Str, elapsedTime, msg.rstrip('\r\n'))
@@ -697,15 +666,15 @@ if __name__ == "__main__":
     rejectPathDir = os.path.join(currentWorkDir, rejectDir)
 
     # set global logging
-    logFilename = '{}_{}.log'.format(time.strftime('%Y%m%d_%H%M%S'), os.path.basename(__file__))
+    logFilename = f"{time.strftime('%Y%m%d_%H%M%S')}_{os.path.basename(__file__)}.log"
     logging.basicConfig(filename = os.path.join(currentWorkDir, logDir, logFilename),
         level = logging.DEBUG,
         format = "[%(levelname)s] : %(asctime)s : %(message)s")
 
     # show execution start
     msg = 'Starting execution of'
-    print('\n{}: {} {}'.format(logging.info.__name__.upper(), msg, os.path.basename(__file__)))
-    logging.info('{} {}'.format(msg, os.path.basename(__file__)))
+    print(f'\n{logging.info.__name__.upper()}: {msg} {os.path.basename(__file__)}')
+    logging.info(f'{msg} {os.path.basename(__file__)}')
 
     # call main definition
     main()
