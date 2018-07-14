@@ -269,10 +269,8 @@ def execTeradataScript(scriptsDir, logDir, BTEQScript, action, showRunCommand=Fa
         if subproc.returncode > 0:
             msg = ('Failed running command', 'Please check log (.btq.out) file')
             print(f"{logging.warning.__name__.upper()}: {msg[0]} \"{command}\"\n{str(subproc.stderr, 'utf-8')} {msg[1]}.")
-
-            logging.warning('{} "{}". {} {}.'.format(msg[0], command,
-                str(subproc.stderr).replace('b', '').replace('\\r', ' ').replace('\\n', ' ').replace('\\t', ' '),
-                msg[1]))
+            stderrMsg = str(subproc.stderr).replace('b', '').replace('\\r', ' ').replace('\\n', ' ').replace('\\t', ' ')
+            logging.warning(f'{msg[0]} \"{command}\". {stderrMsg} {msg[1]}.')
         else:
             if showRunCommand == True:
                 msg = ('Output', 'SUCCESSFUL')
