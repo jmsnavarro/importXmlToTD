@@ -99,7 +99,6 @@ class XMLElementAttrib:
         'decscription',
     )
 
-
 def getXMLElementAttrib(elementName):
     if elementName == XMLElement.Waffles:
         return XMLElementAttrib.Waffles
