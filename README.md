@@ -24,7 +24,9 @@ Developed using Visual Studio Code with Python extension.
 
 ## How to run
 
-$ python importXmlToTD.py
+```bash
+python importXmlToTD.py
+```
 
 ## Notes
 
